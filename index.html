@@ -81,7 +81,7 @@
 	function createPDF(){
 		var doc = new jsPDF();
 		doc.fromHTML(removeIMG(document.getElementById("out").innerHTML), 15, 15, {
-        'width': 170,
+        'width': 600,
             'elementHandlers': specialElementHandlers
 		});
 		doc.save('sample-file.pdf');	
