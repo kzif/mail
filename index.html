@@ -8,19 +8,123 @@
   <meta name="viewport" content="width=device-width">
   <script type="text/javascript">window.OFFICE_MANIFEST_VERSION=1.1</script>
   <script src="https://appsforoffice.microsoft.com/lib/1.1/hosted/office.js" type="text/javascript"></script>
+  <script src="javascript/jspdf.min.js" type="text/javascript"></script>
   
 <script type="text/javascript">
 	Office.initialize = function () {
-		document.getElementById("out").innerHTML = Office.context.mailbox.item;
 	};
-	function getBody(){	
-		document.getElementById("out").innerHTML = Office.context.mailbox.item;
+	
+	function getItemRequest(id) {
+	   // Return a GetItem operation request for the body of the specified item. 
+	   var result = '<?xml version="1.0" encoding="utf-8"?>'+
+	'<soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"'+
+	'		xmlns:m="http://schemas.microsoft.com/exchange/services/2006/messages"'+
+	'              	xmlns:t="http://schemas.microsoft.com/exchange/services/2006/types"'+
+	'               	xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">'+
+	'  <soap:Header>'+
+	'	<t:RequestServerVersion Version="Exchange2013" />'+
+	' </soap:Header>'+
+	'  <soap:Body>'+
+	'    <m:GetItem>'+
+	'      <m:ItemShape>'+
+	'         <t:BaseShape>IdOnly</t:BaseShape>' +
+	'			<t:AdditionalProperties>'+
+	'				<t:FieldURI FieldURI="item:Body" />'+
+	'				<t:FieldURI FieldURI="item:Attachments" />'+
+	'			</t:AdditionalProperties> '+
+	'      </m:ItemShape>' +
+	'      <m:ItemIds>' +
+	'			<t:ItemId Id="'+id+'" />'+
+	'		</m:ItemIds>'+ 
+	'    </m:GetItem>'+
+	'  </soap:Body>'+
+	'</soap:Envelope>';
+
+	   return result;
 	}
 
-</script>
+	function sendRequestBody() {
+	   // Create a local variable that contains the mailbox.
+	   var mailbox = Office.context.mailbox;
 
-<body onload="console.log('INICIADO');">
-<div id="out">PRINT</div><br>
-<input type="button" value="TESTAR" onclick="getBody()">
+	   mailbox.makeEwsRequestAsync(getItemRequest(mailbox.item.itemId), callback);
+	}
+
+	function getParseHtml(text){
+		var parser=new DOMParser();
+		var xml = parser.parseFromString(text,"text/xml");
+		
+		var res = xml.documentElement.getElementsByTagName("Body")[1].innerHTML;
+		var e = document.createElement('div');
+		e.innerHTML = res;
+		return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
+	}
+
+	function removeIMG(text){
+		return text.replace(/<img.*?\/>/, ''); 
+	}
+	
+	function callback(asyncResult)  {
+		var result = asyncResult.value;		
+		console.log(asyncResult);
+		document.getElementById("out").innerHTML = getParseHtml(result);
+	}
+	
+	var specialElementHandlers = {
+		'#editor': function (element, renderer) {
+			return true;
+		}
+	};
+	
+	var doc = new jsPDF();
+	function createPDF(){
+		doc.fromHTML($('#content').html(), 15, 15, {
+        'width': 170,
+            'elementHandlers': specialElementHandlers
+		});
+		doc.save('sample-file.pdf');	
+	}
+</script>
+<style type="text/css">	
+	body{
+		padding-top: 20px;
+	}
+	.PDFtable{
+		width:100%;
+	}
+	.PDFtd{
+		text-align:center;
+		width:50%;
+		font-weight:bold;
+		font-family:Verdana, Geneva, sans-serif;
+		font-size:14px;
+		color:#006;
+	}
+	.PDFimg{
+		width:100px;
+		height:30px;
+	}
+	
+	#out{
+		display: nome;
+	}
+		
+	@media print {
+		.PDFtable{
+			display: none;
+		}
+		#out{
+			display: block;
+		}
+	}
+</style>
+<body>
+<table class="PDFtable">
+<tr>
+<td class="PDFtd"><img onclick="createPDF()" class="PDFimg" src="http://www.seafoodtraining.org/media/storage/editor/_thumbs/Images/download-pdf.jpg"><br>Sem Imagem</td>
+<td class="PDFtd"><img class="PDFimg" src="http://www.seafoodtraining.org/media/storage/editor/_thumbs/Images/download-pdf.jpg"><br>Com Imagem (Software)</td>
+</tr>
+<div id="out"></div>
+</table>
 </body>
 </html>
