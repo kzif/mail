@@ -78,7 +78,7 @@
 	
 	var doc = new jsPDF();
 	function createPDF(){
-		doc.fromHTML($('#content').html(), 15, 15, {
+		doc.fromHTML(document.getElementById("out").innerHTML, 15, 15, {
         'width': 170,
             'elementHandlers': specialElementHandlers
 		});
@@ -103,6 +103,7 @@
 	.PDFimg{
 		width:100px;
 		height:30px;
+		cursor:pointer;
 	}
 	
 	#out{
