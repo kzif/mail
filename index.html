@@ -12,6 +12,7 @@
   
 <script type="text/javascript">
 	Office.initialize = function () {
+		sendRequestBody();
 	};
 	
 	function getItemRequest(id) {
@@ -104,6 +105,10 @@
 		width:100px;
 		height:30px;
 		cursor:pointer;
+	}
+	
+	#out{
+		display: none;
 	}
 		
 	@media print {
