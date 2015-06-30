@@ -69,6 +69,7 @@
 		var result = asyncResult.value;		
 		console.log(asyncResult);
 		document.getElementById("out").innerHTML = getParseHtml(result);
+		document.getElementById("noIMG").innerHTML = '<img onclick="createPDF()" class="PDFimg" src="http://www.seafoodtraining.org/media/storage/editor/_thumbs/Images/download-pdf.jpg"><br>Sem Imagem';
 	}
 	
 	var specialElementHandlers = {
@@ -123,7 +124,7 @@
 <body>
 <table class="PDFtable">
 <tr>
-<td class="PDFtd"><img onclick="createPDF()" class="PDFimg" src="http://www.seafoodtraining.org/media/storage/editor/_thumbs/Images/download-pdf.jpg"><br>Sem Imagem</td>
+<td id="noIMG" class="PDFtd">Carregando...</td>
 <td class="PDFtd"><img class="PDFimg" src="http://www.seafoodtraining.org/media/storage/editor/_thumbs/Images/download-pdf.jpg"><br>Com Imagem (Software)</td>
 </tr>
 <div id="out"></div>
