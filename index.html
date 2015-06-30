@@ -54,8 +54,15 @@
 	function getParseHtml(text){
 		var parser=new DOMParser();
 		var xml = parser.parseFromString(text,"text/xml");
-		
-		var res = xml.documentElement.getElementsByTagName("Body")[1].innerHTML;
+		if(xml.documentElement.getElementsByTagName("t:Body")[0]){
+			var res = xml.documentElement.getElementsByTagName("t:Body")[0].innerHTML;
+		}
+		if(xml.documentElement.getElementsByTagName("tBody")[0]){
+			var res = xml.documentElement.getElementsByTagName("tBody")[0].innerHTML;
+		}
+		if(xml.documentElement.getElementsByTagName("Body")[1]){
+			var res = xml.documentElement.getElementsByTagName("Body")[1].innerHTML;
+		}		
 		var e = document.createElement('div');
 		e.innerHTML = res;
 		return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
