@@ -75,10 +75,10 @@
 			return true;
 		}
 	};
-	
-	var doc = new jsPDF();
+		
 	function createPDF(){
-		doc.fromHTML(document.getElementById("out").innerHTML, 15, 15, {
+		var doc = new jsPDF();
+		doc.fromHTML(removeIMG(document.getElementById("out").innerHTML), 15, 15, {
         'width': 170,
             'elementHandlers': specialElementHandlers
 		});
