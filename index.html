@@ -84,7 +84,7 @@
 		
 		console.log(removeIMG(document.getElementById("out").innerHTML));
 		
-		doc.fromHTML(removeIMG(document.getElementById("out").innerHTML), 0.5, 0.5, { 'width': 600 }, function(){
+		doc.fromHTML(removeIMG(document.getElementById("out").innerHTML), 5, 5, { 'width': 600 }, function(){
 			doc.save('email.pdf');
 		});			
 	}
@@ -123,7 +123,7 @@
 	#out{
 		display: none;
 	}
-		
+	
 	@media print {
 		.PDFtable{
 			display: none;
@@ -139,7 +139,7 @@
 <td id="noIMG" class="PDFtd">Carregando...</td>
 <td class="PDFtd"><img class="PDFimg" src="http://www.seafoodtraining.org/media/storage/editor/_thumbs/Images/download-pdf.jpg"><br>Com Imagem (Software)</td>
 </tr>
-<div id="out"></div>
+<div id="out" style="width:590px"></div>
 </table>
 </body>
 </html>
