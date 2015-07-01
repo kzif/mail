@@ -84,10 +84,20 @@
 		
 		console.log(removeIMG(document.getElementById("out").innerHTML));
 		
-		doc.fromHTML(removeIMG(document.getElementById("out").innerHTML), 0.5, 0.5, { 'width': 600 });		
-		
-		doc.save('email.pdf');	
+		doc.fromHTML(removeIMG(document.getElementById("out").innerHTML), 0.5, 0.5, { 'width': 600 }, function(){
+			doc.save('email.pdf');
+		});			
 	}
+	/*
+	function createPDF(){
+		var pdf = new jsPDF('l', 'pt', 'a4');
+		console.log("EITA");
+
+		pdf.addHTML(removeIMG(document.getElementById("out").innerHTML), 0, 0, { 'width': 600 }, function(){
+			pdf.save("test.pdf");
+		});
+	}
+	*/
 </script>
 <style type="text/css">	
 	body{
