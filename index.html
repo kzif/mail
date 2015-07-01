@@ -79,19 +79,24 @@
 		document.getElementById("noIMG").innerHTML = '<img onclick="createPDF()" class="PDFimg" src="http://www.seafoodtraining.org/media/storage/editor/_thumbs/Images/download-pdf.jpg"><br>Sem Imagem';
 	}
 	
-	var specialElementHandlers = {
-		'#editor': function (element, renderer) {
-			return true;
-		}
-	};
+	
 		
 	function createPDF(){
 		var doc = new jsPDF();
-		doc.fromHTML(removeIMG(document.getElementById("out").innerHTML), 15, 15, {
+		
+		var specialElementHandlers = {
+		'#editor': function (element, renderer) {
+			return true;
+		}
+		};	
+		
+		console.log(removeIMG(document.getElementById("out").innerHTML));
+		
+		doc.fromHTML(removeIMG(document.getElementById("out").innerHTML), 0.5, 0.5, {
         'width': 600,
             'elementHandlers': specialElementHandlers
 		});
-		doc.save('sample-file.pdf');	
+		doc.save('email.pdf');	
 	}
 </script>
 <style type="text/css">	
