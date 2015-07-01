@@ -82,7 +82,7 @@
 	function createPDF(){
 		var doc = new jsPDF();
 		
-		doc.fromHTML(removeIMG(document.getElementById("out").innerHTML), 0.5, 0.5, { 'width': 600 });
+		doc.fromHTML(document.getElementById("out").innerHTML, 0.5, 0.5, { 'width': 600 });
 		doc.save('email.pdf');	
 	}
 </script>
