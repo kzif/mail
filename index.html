@@ -75,7 +75,7 @@
 	function callback(asyncResult)  {
 		var result = asyncResult.value;		
 		console.log(asyncResult);
-		document.getElementById("out").innerHTML = getParseHtml(result);
+		document.getElementById("out").innerHTML = '<div style="width:590px">'+getParseHtml(result)+'</div>';
 		document.getElementById("noIMG").innerHTML = '<img onclick="createPDF()" class="PDFimg" src="http://www.seafoodtraining.org/media/storage/editor/_thumbs/Images/download-pdf.jpg"><br>Sem Imagem';
 	}
 		
@@ -139,7 +139,7 @@
 <td id="noIMG" class="PDFtd">Carregando...</td>
 <td class="PDFtd"><img class="PDFimg" src="http://www.seafoodtraining.org/media/storage/editor/_thumbs/Images/download-pdf.jpg"><br>Com Imagem (Software)</td>
 </tr>
-<div id="out" style="width:590px"></div>
+<div id="out"></div>
 </table>
 </body>
 </html>
