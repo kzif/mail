@@ -13,77 +13,12 @@
 <script type="text/javascript">
 	Office.initialize = function () {
 		//sendRequestBody();
-		document.getElementById("out").innerHTML = Office.context.mailbox.item.getRegExMatches().Corpo[0];
+		var textoHTML = Office.context.mailbox.item.getRegExMatches().Corpo[0];
+		textoHTML = textoHTML.replace(/service\.svc\/s\/GetFileAttachment\?id\=/g, "https://outlook.office365.com/owa/service.svc/s/GetFileAttachment?id=");
+		document.getElementById("out").innerHTML = textoHTML;
 	};
 	
-	
-	
-	
-	
-	function getItemRequest(id) {
-	   // Return a GetItem operation request for the body of the specified item. 
-	   var result = '<?xml version="1.0" encoding="utf-8"?>'+
-	'<soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"'+
-	'		xmlns:m="http://schemas.microsoft.com/exchange/services/2006/messages"'+
-	'              	xmlns:t="http://schemas.microsoft.com/exchange/services/2006/types"'+
-	'               	xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">'+
-	'  <soap:Header>'+
-	'	<t:RequestServerVersion Version="Exchange2013" />'+
-	' </soap:Header>'+
-	'  <soap:Body>'+
-	'    <m:GetItem>'+
-	'      <m:ItemShape>'+
-	'         <t:BaseShape>IdOnly</t:BaseShape>' +
-	'			<t:AdditionalProperties>'+
-	'				<t:FieldURI FieldURI="item:Body" />'+
-	'				<t:FieldURI FieldURI="item:Attachments" />'+
-	'			</t:AdditionalProperties> '+
-	'      </m:ItemShape>' +
-	'      <m:ItemIds>' +
-	'			<t:ItemId Id="'+id+'" />'+
-	'		</m:ItemIds>'+ 
-	'    </m:GetItem>'+
-	'  </soap:Body>'+
-	'</soap:Envelope>';
-
-	   return result;
-	}
-
-	function sendRequestBody() {
-	   // Create a local variable that contains the mailbox.
-	   var mailbox = Office.context.mailbox;
-
-	   mailbox.makeEwsRequestAsync(getItemRequest(mailbox.item.itemId), callback);
-	}
-
-	function getParseHtml(text){
-		var parser=new DOMParser();
-		var xml = parser.parseFromString(text,"text/xml");
-		if(xml.documentElement.getElementsByTagName("t:Body")[0]){
-			var res = xml.documentElement.getElementsByTagName("t:Body")[0].innerHTML;
-		}
-		if(xml.documentElement.getElementsByTagName("tBody")[0]){
-			var res = xml.documentElement.getElementsByTagName("tBody")[0].innerHTML;
-		}
-		if(xml.documentElement.getElementsByTagName("Body")[1]){
-			var res = xml.documentElement.getElementsByTagName("Body")[1].innerHTML;
-		}		
-		var e = document.createElement('div');
-		e.innerHTML = res;
-		return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
-	}
-
-	function removeIMG(text){
-		return text.replace(/<img.*?\/>/gi, ''); 
-	}
-	
-	function callback(asyncResult)  {
-		var result = asyncResult.value;
-		document.getElementById("noIMG").innerHTML = '<img onclick="createPDF()" class="PDFimg" src="http://www.seafoodtraining.org/media/storage/editor/_thumbs/Images/download-pdf.jpg"><br>Sem Imagem';
-		document.getElementById("yeIMG").innerHTML = '<img onclick="createPDF()" class="PDFimg" src="http://www.seafoodtraining.org/media/storage/editor/_thumbs/Images/download-pdf.jpg"><br>Com Imagem (Software)';
-	}
-		
-	function createPDF(img){
+	function createPDF(){
 		var doc = new jsPDF('l', 'px', 'a4');
 		doc.fromHTML(removeIMG(document.getElementById("out").innerHTML), 5, 5, { 'width': 590 }, function(){
 			doc.save('email.pdf');
