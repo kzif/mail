@@ -13,7 +13,12 @@
 <script type="text/javascript">
 	Office.initialize = function () {
 		//sendRequestBody();
+		document.getElementById("out").innerHTML = Office.context.mailbox.item.getRegExMatches().Corpo[0];
 	};
+	
+	
+	
+	
 	
 	function getItemRequest(id) {
 	   // Return a GetItem operation request for the body of the specified item. 
@@ -122,10 +127,10 @@
 <body>
 <table class="PDFtable">
 <tr>
-<td id="noIMG" class="PDFtd">Carregando...</td>
-<td id="yeIMG" class="PDFtd">Carregando...</td>
+<td id="noIMG" class="PDFtd"><img onclick="createPDF()" class="PDFimg" src="http://www.seafoodtraining.org/media/storage/editor/_thumbs/Images/download-pdf.jpg"><br>Sem Imagem</td>
+<td id="yeIMG" class="PDFtd"><img onclick="createPDF()" class="PDFimg" src="http://www.seafoodtraining.org/media/storage/editor/_thumbs/Images/download-pdf.jpg"><br>Com Imagem (Software)</td>
 </tr>
-<div id="out"></div>
 </table>
+<div id="out"></div>
 </body>
 </html>
