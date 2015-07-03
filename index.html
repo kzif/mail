@@ -12,7 +12,7 @@
   
 <script type="text/javascript">
 	Office.initialize = function () {
-		sendRequestBody();
+		//sendRequestBody();
 	};
 	
 	function getItemRequest(id) {
@@ -73,31 +73,25 @@
 	}
 	
 	function callback(asyncResult)  {
-		var result = asyncResult.value;		
-		console.log(asyncResult);
+		var result = asyncResult.value;
 		document.getElementById("out").innerHTML = '<div style="width:590px">'+getParseHtml(result)+'</div>';
-		document.getElementById("noIMG").innerHTML = '<img onclick="createPDF()" class="PDFimg" src="http://www.seafoodtraining.org/media/storage/editor/_thumbs/Images/download-pdf.jpg"><br>Sem Imagem';
+		document.getElementById("noIMG").innerHTML = '<img onclick="createPDF(\'no\')" class="PDFimg" src="http://www.seafoodtraining.org/media/storage/editor/_thumbs/Images/download-pdf.jpg"><br>Sem Imagem';
+		document.getElementById("yeIMG").innerHTML = '<img onclick="createPDF(\'yes\')" class="PDFimg" src="http://www.seafoodtraining.org/media/storage/editor/_thumbs/Images/download-pdf.jpg"><br>Com Imagem (Software)';
 	}
 		
-	function createPDF(){
-		var doc = new jsPDF();
-		
-		console.log(removeIMG(document.getElementById("out").innerHTML));
-		
-		doc.fromHTML(removeIMG(document.getElementById("out").innerHTML), 5, 5, { 'width': 600 }, function(){
-			doc.save('email.pdf');
-		});			
+	function createPDF(img){
+		var token = "Agh8yPgJWUqI9fb8oAVCj7Cz8Iq_g9IYp9UExzfHme6dISHKeOROChoKrfZeX2KIfV9_8njyop4.";
+		if(img == 'no')
+			var doc = new jsPDF('l', 'px', 'a4');
+			
+			console.log(removeIMG(document.getElementById("out").innerHTML));
+			doc.fromHTML(removeIMG(document.getElementById("out").innerHTML), 5, 5, { 'width': 590 }, function(){
+				doc.save('email.pdf');
+			});
+		}else{
+			
+		}
 	}
-	/*
-	function createPDF(){
-		var pdf = new jsPDF('l', 'pt', 'a4');
-		console.log("EITA");
-
-		pdf.addHTML(removeIMG(document.getElementById("out").innerHTML), 0, 0, { 'width': 600 }, function(){
-			pdf.save("test.pdf");
-		});
-	}
-	*/
 </script>
 <style type="text/css">	
 	body{
@@ -121,7 +115,7 @@
 	}
 	
 	#out{
-		display: none;
+		/*display: none;*/
 	}
 	
 	@media print {
@@ -137,7 +131,7 @@
 <table class="PDFtable">
 <tr>
 <td id="noIMG" class="PDFtd">Carregando...</td>
-<td class="PDFtd"><img class="PDFimg" src="http://www.seafoodtraining.org/media/storage/editor/_thumbs/Images/download-pdf.jpg"><br>Com Imagem (Software)</td>
+<td id="yeIMG" class="PDFtd">Carregando...</td>
 </tr>
 <div id="out"></div>
 </table>
