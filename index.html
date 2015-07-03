@@ -12,8 +12,7 @@
   
 <script type="text/javascript">
 	Office.initialize = function () {
-		//sendRequestBody();
-		console.log("INICIADO");
+		sendRequestBody();
 	};
 	
 	function getItemRequest(id) {
@@ -81,7 +80,6 @@
 	}
 		
 	function createPDF(img){
-		var token = "Agh8yPgJWUqI9fb8oAVCj7Cz8Iq_g9IYp9UExzfHme6dISHKeOROChoKrfZeX2KIfV9_8njyop4.";
 		if(img == 'no')
 			var doc = new jsPDF('l', 'px', 'a4');
 			
@@ -116,7 +114,7 @@
 	}
 	
 	#out{
-		/*display: none;*/
+		display: block;
 	}
 	
 	@media print {
