@@ -14,7 +14,6 @@
 	Office.initialize = function () {
 		//sendRequestBody();
 		var textoHTML = Office.context.mailbox.item.getRegExMatches().Corpo[0];
-		textoHTML = textoHTML.replace(/service\.svc\/s\/GetFileAttachment\?id\=/g, "https://outlook.office365.com/owa/service.svc/s/GetFileAttachment?id=");
 		document.getElementById("out").innerHTML = textoHTML;
 	};
 	
