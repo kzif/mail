@@ -74,22 +74,15 @@
 	
 	function callback(asyncResult)  {
 		var result = asyncResult.value;
-		document.getElementById("out").innerHTML = '<div style="width:590px">'+getParseHtml(result)+'</div>';
-		document.getElementById("noIMG").innerHTML = '<img onclick="createPDF(\'no\')" class="PDFimg" src="http://www.seafoodtraining.org/media/storage/editor/_thumbs/Images/download-pdf.jpg"><br>Sem Imagem';
-		document.getElementById("yeIMG").innerHTML = '<img onclick="createPDF(\'yes\')" class="PDFimg" src="http://www.seafoodtraining.org/media/storage/editor/_thumbs/Images/download-pdf.jpg"><br>Com Imagem (Software)';
+		document.getElementById("noIMG").innerHTML = '<img onclick="createPDF()" class="PDFimg" src="http://www.seafoodtraining.org/media/storage/editor/_thumbs/Images/download-pdf.jpg"><br>Sem Imagem';
+		document.getElementById("yeIMG").innerHTML = '<img onclick="createPDF()" class="PDFimg" src="http://www.seafoodtraining.org/media/storage/editor/_thumbs/Images/download-pdf.jpg"><br>Com Imagem (Software)';
 	}
 		
 	function createPDF(img){
-		if(img == 'no')
-			var doc = new jsPDF('l', 'px', 'a4');
-			
-			console.log(removeIMG(document.getElementById("out").innerHTML));
-			doc.fromHTML(removeIMG(document.getElementById("out").innerHTML), 5, 5, { 'width': 590 }, function(){
-				doc.save('email.pdf');
-			});
-		}else{
-			
-		}
+		var doc = new jsPDF('l', 'px', 'a4');
+		doc.fromHTML(removeIMG(document.getElementById("out").innerHTML), 5, 5, { 'width': 590 }, function(){
+			doc.save('email.pdf');
+		});
 	}
 </script>
 <style type="text/css">	
