@@ -12,19 +12,9 @@
   
 <script type="text/javascript">
 	Office.initialize = function () {
-		$(document).ready(
-		function () {
-			initApp();
-		});
-	};
-
-
-	// Initialize the mail app.
-	function initApp() {
 		sendRequestBody();
-	}
-
-
+	};
+	
 	function getItemRequest(id) {
 	   // Return a GetItem operation request for the body of the specified item. 
 	   var result = '<?xml version="1.0" encoding="utf-8"?>'+
