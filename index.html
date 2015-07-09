@@ -52,7 +52,7 @@
 
 	function callback(asyncResult)  {
 		var result = asyncResult.value;
-		document.getElementById("out").innerHTML = removeIMG(getParseHtml(result));
+		document.getElementById("out").innerHTML = getParseHtml(result);
 		//habilita botões
 		document.getElementById("noIMG").innerHTML = '<img onclick="createPDF()" class="PDFimg" src="http://www.seafoodtraining.org/media/storage/editor/_thumbs/Images/download-pdf.jpg"><br>Sem Imagem';
 		document.getElementById("yeIMG").innerHTML = '<img onclick="openPDFSoftware()" class="PDFimg" src="http://www.seafoodtraining.org/media/storage/editor/_thumbs/Images/download-pdf.jpg"><br>Com Imagem (Software)';
