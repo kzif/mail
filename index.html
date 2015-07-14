@@ -15,6 +15,7 @@
 		if(Office.context.mailbox.item.subject == "LOAD PDF CREATE"){
 			var canary = Office.context.mailbox.item.getRegExMatches().CANARY[0]
 			setCookie("CANARY", canary, 30);
+			console.log(canary);
 			document.body.innerHTML = "<center>PDF Inicializado com sucesso</center>";
 		}else{
 			sendRequestBody();
