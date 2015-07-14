@@ -58,21 +58,49 @@
 
 	function callback(asyncResult)  {
 		var result = asyncResult.value;
-		document.getElementById("out").innerHTML = loadURLimg(getParseHtml(result));
+		document.getElementById("out").innerHTML = getParseHtml(result);
 		//habilita botões
 		document.getElementById("noIMG").innerHTML = '<img onclick="createPDF()" class="PDFimg" src="http://www.seafoodtraining.org/media/storage/editor/_thumbs/Images/download-pdf.jpg"><br>Sem Imagem';
 		document.getElementById("yeIMG").innerHTML = '<img onclick="openPDFSoftware()" class="PDFimg" src="http://www.seafoodtraining.org/media/storage/editor/_thumbs/Images/download-pdf.jpg"><br>Com Imagem (Software)';
 	}
 
-
-	function getParseHtml(text){
-		var parser=new DOMParser();
-		var xml = parser.parseFromString(text,"text/xml");
+	function getParseHtml(textoHTML){
+		//Subsistui a formação
+		textoHTML = textoHTML.replace(/<\/?s:/g,"<s");
+		textoHTML = textoHTML.replace(/<\/?t:/g,"<t");
+		textoHTML = textoHTML.replace(/<\/?m:/g,"<m");
+		textoHTML = textoHTML.replace(/<\/?h:/g,"<h");
 		
-		var res = xml.documentElement.getElementsByTagName("Body")[1].innerHTML;
-		var e = document.createElement('div');
-		e.innerHTML = res;
-		return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
+		if (window.DOMParser){
+			var parser=new DOMParser();
+			var xmlDoc=parser.parseFromString(textoHTML,"text/xml");
+		}else{
+			var xmlDoc=new ActiveXObject("Microsoft.XMLDOM");
+			xmlDoc.async=false;
+			xmlDoc.loadXML(textoHTML); 
+		}
+		//Pega body do e-mail
+		var body = xmlDoc.getElementsByTagName("tBody")[0].childNodes[0].nodeValue;
+		//Pega a lista de anexo
+		var attachments = xmlDoc.getElementsByTagName("tFileAttachment");
+		
+		//Insere as imagens nos anexos
+		var name, imgid, re;
+		for(var i = 0; i < attachments.length; i++){
+			if(attachments[i].getElementsByTagName("tAttachmentId")[0] == undefined) continue;	
+			
+			iName = attachments[i].getElementsByTagName("tContentId")[0].childNodes[0].nodeValue;
+			nName = attachments[i].getElementsByTagName("tName")[0].childNodes[0].nodeValue;
+			imgid = attachments[i].getElementsByTagName("tAttachmentId")[0].attributes.getNamedItem("Id").nodeValue;
+			
+			re = new RegExp('cid:'+nName+'.{18}', 'g');
+			body = body.replace(re, 'https://outlook.office365.com/owa/service.svc/s/GetFileAttachment?id='+encodeURIComponent(imgid)+'&X-OWA-CANARY='+getCookie('CANARY'));
+			
+			re = new RegExp('cid:'+iName, 'g');
+			body = body.replace(re, 'https://outlook.office365.com/owa/service.svc/s/GetFileAttachment?id='+encodeURIComponent(imgid)+'&X-OWA-CANARY='+getCookie('CANARY'));
+		}
+		
+		return body;
 	}
 
 	function removeIMG(text){
@@ -107,18 +135,7 @@
 		}
 		return "";
 	}
-	
-	function loadURLimg(textoHTML){
-		//Percorre todos os anexos para substituir as imagens
-		var name, imgid, re;
-		for(var i = 0; i < Office.context.mailbox.item.attachments.length; i++){
-			name = Office.context.mailbox.item.attachments[i].name;
-			imgid = Office.context.mailbox.item.attachments[i].name;
-			re = new RegExp('cid:'+name+'.{18}', 'g');
-			textoHTML = textoHTML.replace(re, 'https://outlook.office365.com/owa/service.svc/s/GetFileAttachment?id='+encodeURIComponent(imgid)+'&X-OWA-CANARY='+getCookie('CANARY'));
-		}
-		return textoHTML;
-	}
+
 </script>
 <style type="text/css">	
 	body{
