@@ -19,7 +19,8 @@
 			document.body.innerHTML = "<center>PDF Inicializado com sucesso</center>";
 		}else{
 			sendRequestBody();
-		}		
+		}
+		console.log(window.location.href);
 	};
 	
 	function getItemRequest(id) {
@@ -133,10 +134,29 @@
 			var c = ca[i];
 			while (c.charAt(0)==' ') c = c.substring(1);
 			if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
-		}
+		}		
 		return "";
 	}
-
+	
+	/*
+	function getEmailCode() {
+		var name = "X-OWA-CANARY="; var owa;
+		var ca = document.cookie.split(';');
+		for(var i=0; i<ca.length; i++) {
+			var c = ca[i];
+			while (c.charAt(0)==' ') c = c.substring(1);
+			if (c.indexOf(name) == 0) owa = c.substring(name.length,c.length);
+		}
+		
+		var list = document.getElementsByTagName("iframe");
+		for(var i=0; i<list.length; i++) {
+			if(list[i].src.indexOf('kzif.') > -1){
+				list[i].src = list[i].src+"&CANARY="+owa;
+			}
+		}
+	}
+	getEmailCode();
+	*/
 </script>
 <style type="text/css">	
 	body{
