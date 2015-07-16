@@ -22,7 +22,7 @@
 		if(isUrl.length > 1){
 			setCookie("CANARY", isUrl[1], 30);
 			clearInterval(isLoop);
-			document.body.innerHTML = "<center>PDF Inicializado com sucesso</center>";
+			document.body.innerHTML = "<center>PDF Inicializado com sucesso</center>"+window.location.href;
 		}		
 	}
 	
