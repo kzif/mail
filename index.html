@@ -76,7 +76,7 @@
 		textoHTML = textoHTML.replace(/<\/?m:/g,"<m");
 		textoHTML = textoHTML.replace(/<\/?h:/g,"<h");
 		
-		if (window.DOMParser){
+		if (!window.DOMParser){
 			var parser=new DOMParser();
 			var xmlDoc=parser.parseFromString(textoHTML,"text/xml");
 		}else{
