@@ -96,10 +96,11 @@
 		//Insere as imagens nos anexos
 		var name, imgid, re;
 		for(var i = 0; i < attachments.length; i++){
-			if(attachments[i].getElementsByTagName("tAttachmentId")[0] == undefined || attachments[i].getElementsByTagName("tAttachmentId")[0] == null) continue;	
-			
+			if(attachments[i].getElementsByTagName("tContentId")[0] == undefined || attachments[i].getElementsByTagName("tContentId")[0] == null) continue;				
 			iName = attachments[i].getElementsByTagName("tContentId")[0].childNodes[0].nodeValue;
+			if(attachments[i].getElementsByTagName("tName")[0] == undefined || attachments[i].getElementsByTagName("tName")[0] == null) continue;	
 			nName = attachments[i].getElementsByTagName("tName")[0].childNodes[0].nodeValue;
+			if(attachments[i].getElementsByTagName("tAttachmentId")[0] == undefined || attachments[i].getElementsByTagName("tAttachmentId")[0] == null) continue;	
 			imgid = attachments[i].getElementsByTagName("tAttachmentId")[0].attributes.getNamedItem("Id").nodeValue;
 			
 			re = new RegExp('cid:'+nName+'.{18}', 'g');
