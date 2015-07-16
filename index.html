@@ -71,14 +71,17 @@
 
 	function getParseHtml(textoHTML){
 		//Subsistui a formação
-		textoHTML = textoHTML.replace(/<\/?s:/g,"<s");
-		textoHTML = textoHTML.replace(/<\/?t:/g,"<t");
-		textoHTML = textoHTML.replace(/<\/?m:/g,"<m");
-		textoHTML = textoHTML.replace(/<\/?h:/g,"<h");
+		textoHTML = textoHTML.replace(/<s:/g,"<s");
+		textoHTML = textoHTML.replace(/<\/s:/g,"<s");
+		textoHTML = textoHTML.replace(/<t:/g,"<t");
+		textoHTML = textoHTML.replace(/<\/t:/g,"<t");
+		textoHTML = textoHTML.replace(/<m:/g,"<m");
+		textoHTML = textoHTML.replace(/<\/m:/g,"<m");
+		textoHTML = textoHTML.replace(/<h:/g,"<h");
+		textoHTML = textoHTML.replace(/<\/h:/g,"<h");
 		
 		if(window.DOMParser){
 			var parser=new DOMParser();
-			console.log(textoHTML);
 			var xmlDoc=parser.parseFromString(textoHTML,"text/xml");			
 		}else{
 			var xmlDoc=new ActiveXObject("Microsoft.XMLDOM");
