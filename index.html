@@ -11,18 +11,20 @@
   <script src="javascripts/jspdf.min.js" type="text/javascript"></script>
   
 <script type="text/javascript">
-	Office.initialize = function () {
-		if(Office.context.mailbox.item.subject == "LOAD PDF CREATE"){
-			var canary = Office.context.mailbox.item.getRegExMatches().CANARY[0]
-			setCookie("CANARY", canary, 30);
-			console.log(canary);
-			document.body.innerHTML = "<center>PDF Inicializado com sucesso</center>";
-		}else{
-			sendRequestBody();
-		}
+	Office.initialize = function(){
+		sendRequestBody();		
+		isLoop = setInterval(getCookieUpdate, 100);
 	};
 	
-	console.log(window.location.href);
+	var isLoop, isUrl;
+	function getCookieUpdate(){
+		isUrl = window.location.href.split('&CANARY=');
+		if(isUrl.length > 1){
+			setCookie("CANARY", isUrl[1], 30);
+			clearInterval(isLoop);
+			document.body.innerHTML = "<center>PDF Inicializado com sucesso</center>";
+		}		
+	}
 	
 	function getItemRequest(id) {
 	   // Return a GetItem operation request for the body of the specified item. 
@@ -135,7 +137,7 @@
 			var c = ca[i];
 			while (c.charAt(0)==' ') c = c.substring(1);
 			if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
-		}		
+		}
 		return "";
 	}
 	
