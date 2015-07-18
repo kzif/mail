@@ -169,7 +169,6 @@
 	var tokenImg = new Array();
 	function convertImgToBase64(url, callback, token){
 		var img = new Image();
-		img.crossOrigin = 'Anonymous';
 		tokenImg[token] = 'loading';
 		img.onload = function(){
 			var canvas = document.createElement('CANVAS');
@@ -182,6 +181,7 @@
 			callback(dataURL, token);
 			canvas = null; 
 		};
+		img.crossOrigin = "Anonymous";
 		img.src = url;
 	}
 	
