@@ -69,7 +69,6 @@
 		document.getElementById("out").innerHTML = getParseHtml(result);
 		//habilita botões
 		document.getElementById("noIMG").innerHTML = '<img onclick="createPDF()" class="PDFimg" src="http://www.seafoodtraining.org/media/storage/editor/_thumbs/Images/download-pdf.jpg"><br>Sem Imagem';
-		document.getElementById("yeIMG").innerHTML = '<img onclick="openPDFSoftware()" class="PDFimg" src="http://www.seafoodtraining.org/media/storage/editor/_thumbs/Images/download-pdf.jpg"><br>Com Imagem (Software)';
 	}
 
 	function getParseHtml(textoHTML){
@@ -97,7 +96,7 @@
 		var attachments = xmlDoc.getElementsByTagName("tFileAttachment");
 		
 		//Insere as imagens nos anexos
-		var name, imgid, re;
+		var name, imgid, re, token;
 		for(var i = 0; i < attachments.length; i++){
 			if(attachments[i].getElementsByTagName("tContentId")[0] == undefined || attachments[i].getElementsByTagName("tContentId")[0] == null) continue;				
 			iName = attachments[i].getElementsByTagName("tContentId")[0].childNodes[0].nodeValue;
@@ -106,11 +105,17 @@
 			if(attachments[i].getElementsByTagName("tAttachmentId")[0] == undefined || attachments[i].getElementsByTagName("tAttachmentId")[0] == null) continue;	
 			imgid = attachments[i].getElementsByTagName("tAttachmentId")[0].attributes.getNamedItem("Id").nodeValue;
 			
+			//Cria um id para a imagem
+			token = makeid();
+			
+			//Baixa a imagem e pega seu codigo em BASE64
+			convertImgToBase64('https://outlook.office365.com/owa/service.svc/s/GetFileAttachment?id='+encodeURIComponent(imgid)+'&X-OWA-CANARY='+getCookie('CANARY'), loadImage, token);
+			
 			re = new RegExp('cid:'+nName+'.{18}', 'g');
-			body = body.replace(re, 'https://outlook.office365.com/owa/service.svc/s/GetFileAttachment?id='+encodeURIComponent(imgid)+'&X-OWA-CANARY='+getCookie('CANARY'));
+			body = body.replace(re, 'data:image/jpg;base64,'+token);
 			
 			re = new RegExp('cid:'+iName, 'g');
-			body = body.replace(re, 'https://outlook.office365.com/owa/service.svc/s/GetFileAttachment?id='+encodeURIComponent(imgid)+'&X-OWA-CANARY='+getCookie('CANARY'));
+			body = body.replace(re, 'data:image/jpg;base64,'+token);
 		}
 		
 		return body;
@@ -128,7 +133,11 @@
 	}
 	
 	function openPDFSoftware(){
-		window.print();
+		//window.print();
+		var doc = new jsPDF('l', 'px', 'a4');
+		doc.fromHTML(document.getElementById("out").innerHTML, 5, 5, { 'width': 590 }, function(){
+			doc.save('email.pdf');
+		});
 	}
 	
 	function setCookie(cname, cvalue, exdays) {
@@ -149,6 +158,71 @@
 		return "";
 	}
 	
+	
+	/**********************************
+	** Converte a imagem para BASE64
+	** Empilha as solicitações de imagem para controle de load de imagem.
+	** Ex uso: convertImgToBase64('http://goo.gl/AOxHAL', function(base64Img){
+		console.log('IMAGE:',base64Img);
+	})
+	**********************************/
+	var tokenImg = new Array();
+	function convertImgToBase64(url, callback, token){
+		var img = new Image();
+		img.crossOrigin = 'Anonymous';
+		tokenImg[token] = 'loading';
+		img.onload = function(){
+			var canvas = document.createElement('CANVAS');
+			var ctx = canvas.getContext('2d');
+			canvas.height = this.height;
+			canvas.width = this.width;
+			ctx.drawImage(this,0,0);
+			var dataURL = canvas.toDataURL('image/png');
+			tokenImg[token] = 'complete';
+			callback(dataURL, token);
+			canvas = null; 
+		};
+		img.src = url;
+	}
+	
+	/**********************************
+	** Desempilha as solicitações  e faz as substituiçoes necessarias
+	** Indica fim de load das imagens
+	**********************************/
+	function loadImage(data,token){
+		//Localiza e sobstitui as imagens baixadas
+		var list = document.getElementsByTagName("img");
+		for(var i = 0; i < list.length; i++){
+			if(list[i].src == 'data:image/jpg;base64,'+token){
+				list[i].src = data;
+			}
+		}
+		//Verifica se o carregamento das imagens acabou para habilitar o botão de com imagem
+		var complete = true;
+		for (var i in tokenImg)
+		{
+			if(tokenImg[i] == 'loading'){
+				complete = false;
+				break;
+			}
+		}
+		//Completou a lista, habilita o botão
+		if(complete){
+			document.getElementById("yeIMG").innerHTML = '<img onclick="openPDFSoftware()" class="PDFimg" src="http://www.seafoodtraining.org/media/storage/editor/_thumbs/Images/download-pdf.jpg"><br>Com Imagem (Software)';
+		}		
+	}
+	
+	/**********************************
+	** Cria uma seguencia aletoria de 8 letras
+	**********************************/
+	function makeid()
+	{
+		var text = "";
+		var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+		for( var i=0; i < 8; i++ )
+			text += possible.charAt(Math.floor(Math.random() * possible.length));
+		return text;
+	}
 	/*
 	function getEmailCode() {
 		var name = "X-OWA-CANARY="; var owa;
