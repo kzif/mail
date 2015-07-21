@@ -44,6 +44,7 @@
 				var tipo  = e.data.substr(0,8);
 				var texto = e.data.substr(8);
 				console.log('LOG: SUCESSO EM COMUNICAR, TAMANHO: '+e.data.length);
+				console.log('LOG: TIPO - '+tipo);
 				if(tipo == "MSG0001"){ //Codigo sem imagem em Base64
 					texto = removeIMG(texto);
 					document.getElementById('out_no_image').innerHTML = texto;
