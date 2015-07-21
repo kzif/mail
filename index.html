@@ -41,10 +41,9 @@
 		function (e) {
 			if(e.origin == 'https://outlook.office365.com'){
 				//Idetifica qual foi a solicitação
-				var tipo  = e.data.substr(0,8);
+				var tipo  = e.data.substr(0,7);
 				var texto = e.data.substr(8);
-				console.log('LOG: SUCESSO EM COMUNICAR, TAMANHO: '+e.data.length);
-				console.log('LOG: TIPO - '+tipo);
+				console.log('LOG: TAMANHO - '+texto.length+', TIPO - '+tipo);
 				if(tipo == "MSG0001"){ //Codigo sem imagem em Base64
 					texto = removeIMG(texto);
 					document.getElementById('out_no_image').innerHTML = texto;
@@ -55,7 +54,6 @@
 					document.getElementById("yeIMG").innerHTML = '<img onclick="openPDFSoftware()" class="PDFimg" src="http://www.seafoodtraining.org/media/storage/editor/_thumbs/Images/download-pdf.jpg"><br>Com Imagem (Software)';
 				}
 			}
-			console.log(e.origin);
 		},
 		false);
 	}
