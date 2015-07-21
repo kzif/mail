@@ -18,7 +18,7 @@
 	
 
 	function removeIMG(text){
-		return text.replace(/<img.*?\/>/, '');
+		return text.replace(/<img.*?\/>/g, '');
 	}
 	
 	function createPDF(){
