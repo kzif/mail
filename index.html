@@ -53,12 +53,12 @@
 				//Idetifica qual foi a solicitação
 				var tipo  = e.data.substr(0,7);
 				var texto = e.data.substr(8);
-				console.log('LOG: TAMANHO - '+texto.length+', TIPO - '+tipo);
+				texto = texto.replace(/<pre>/g,'<i>');
+				texto = texto.replace(/<\/pre>/g,'</i>');
 				if(tipo == "MSG0001"){ //Codigo sem imagem em Base64
 					texto = removeIMG(texto);
 					document.getElementById('out_no_image').innerHTML = texto;
 					document.getElementById("noIMG").innerHTML = '<img onclick="createPDF()" class="PDFimg" src="http://www.seafoodtraining.org/media/storage/editor/_thumbs/Images/download-pdf.jpg"><br>Sem Imagem';
-					console.log('LOG: RECEBIDO, TAMANHO: '+texto.length);
 				}else if(tipo == "MSG0002"){ //Comdigo com imagens em Base64
 					texto = removeIMGBlock(texto);
 					document.getElementById('out_yes_image').innerHTML = texto;
