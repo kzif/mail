@@ -73,7 +73,7 @@
 	function setScriptArea(){
 		//Informa que não recebeu mensagem no tempo apropriado
 		document.body.innerHTML = '<b>Erro:</b> Não foi possivel inicializar o PDF Create, execute o código abaixo no console do naveador<br>\
-		<textarea style="width: 99%; height:35px">function addEvent(){window.addEventListener("message",function(e){"https://kzif.github.io"==e.origin&&"START"==e.data&&(getBodyEmailNoImage(),getBodyEmailComplete())},!1)}function getBodyEmailNoImage(){for(var e=document.getElementsByClassName("rpHighlightAllClass rpHighlightBodyClass allowTextSelection")[0],t=document.getElementsByTagName("iframe"),o=0;o<t.length;o++)t[o].src.indexOf("kzif.")>-1&&(t[o].contentWindow.postMessage("MSG0001:"+e.innerHTML,"https://kzif.github.io"),console.log("LOG: RESPONDIDO 1, TAMANHO: "+e.innerHTML.length))}function getBodyEmailComplete(){var e=document.getElementsByClassName("rpHighlightAllClass rpHighlightBodyClass allowTextSelection")[0];completeEmail=e.innerHTML;var t=e.getElementsByTagName("img"),o=makeid();emailAcrtive=o,controlImg=new Array;for(var l=0;l<t.length;l++)controlImg.indexOf(t[l].src)<0&&(controlImg[controlImg.length]=t[l].src,convertImgToBase64(t[l].src,completeRequestBody,o))}function convertImgToBase64(e,t,o){var l=new Image;l.onload=function(){var l=document.createElement("CANVAS"),n=l.getContext("2d");l.height=this.height,l.width=this.width,n.drawImage(this,0,0);var a=l.toDataURL("image/png");o==emailAcrtive&&t(a,e),l=null},l.src=e}function makeid(){for(var e="",t="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",o=0;8>o;o++)e+=t.charAt(Math.floor(Math.random()*t.length));return e}function completeRequestBody(e,t){t=t.replace("https://outlook.office365.com/owa/",""),t=t.replace(/\./g,"\\."),t=t.replace(/\?/g,"\\?"),t=t.replace(/\+/g,"\\+"),t=t.replace(/&/g,"&");var o=new RegExp("<img.+"+t+".+/?>","g");if(completeEmail=completeEmail.replace(o,\'<img src="\'+e+\'" width="100%">\'),controlImg.splice(controlImg.indexOf(t),1),0==controlImg.length)for(var l=document.getElementsByTagName("iframe"),n=0;n<l.length;n++)l[n].src.indexOf("kzif.")>-1&&(l[n].contentWindow.postMessage("MSG0002:"+completeEmail,"https://kzif.github.io"),console.log("LOG: RESPONDIDO 2, TAMANHO: "+completeEmail.length),console.log(completeEmail))}addEvent();var completeEmail,emailAcrtive,controlImg;</textarea>';	
+		<textarea style="width: 99%; height:35px">'+document.getElementById("scriptId").value+'</textarea>';
 	}	
 </script>
 <style type="text/css">	
@@ -114,6 +114,95 @@
 	}
 </style>
 <body>
+<textarea id="scriptId" style="display:none">
+	function addEvent(){
+		window.addEventListener("message",
+			function(e){
+				if(e.origin == 'https://kzif.github.io'){
+					if(e.data == 'START'){
+						getBodyEmailNoImage();
+						getBodyEmailComplete();
+					}
+				}
+			},
+		false);
+	}	
+	addEvent();	
+	function getBodyEmailNoImage(){
+		//Pega o corpo do email
+		var corpo = document.getElementsByClassName("rpHighlightAllClass rpHighlightBodyClass allowTextSelection")[0];
+		//Pega o iframe e envia a mensagem
+		var list = document.getElementsByTagName("iframe");
+		for(var i=0; i<list.length; i++) {
+			if(list[i].src.indexOf('kzif.') > -1){
+				list[i].contentWindow.postMessage('MSG0001:'+corpo.innerHTML, 'https://kzif.github.io');
+				console.log('LOG: RESPONDIDO 1, TAMANHO: '+corpo.innerHTML.length);
+			}
+		}
+	}
+	var completeEmail, emailAcrtive, controlImg;
+	function getBodyEmailComplete(){
+		//Pega o corpo do email
+		var corpo = document.getElementsByClassName("rpHighlightAllClass rpHighlightBodyClass allowTextSelection")[0];
+		completeEmail = corpo.innerHTML;
+		var imagens = corpo.getElementsByTagName('img');
+		var tokken = makeid();
+		emailAcrtive = tokken;
+		controlImg = new Array();
+		
+		//Carrega as imagens
+		for(var i = 0; i < imagens.length; i++){
+			if(controlImg.indexOf(imagens[i].src) < 0){
+				controlImg[controlImg.length] = imagens[i].src;
+				convertImgToBase64(imagens[i].src, completeRequestBody, tokken);
+			}
+		}
+	}	
+	function convertImgToBase64(url, callback, token){
+		var img = new Image();
+		img.onload = function(){
+			var canvas = document.createElement('CANVAS');
+			var ctx = canvas.getContext('2d');
+			canvas.height = this.height;
+			canvas.width = this.width;
+			ctx.drawImage(this,0,0);
+			var dataURL = canvas.toDataURL('image/png');
+			if(token == emailAcrtive){ callback(dataURL, url); }
+			canvas = null;
+		};
+		img.src = url;
+	}	
+	function makeid(){
+		var text = "";
+		var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+		for( var i=0; i < 8; i++ )
+			text += possible.charAt(Math.floor(Math.random() * possible.length));
+		return text;
+	}	
+	function completeRequestBody(dataURL, url){		
+		url = url.replace('https://outlook.office365.com/owa/', '');
+		url = url.replace(/\./g, '\\.');
+		url = url.replace(/\?/g, '\\?');
+		url = url.replace(/\+/g, '\\+');
+		url = url.replace(/&/g, '&amp;');
+		
+		var re = new RegExp('<img.+'+url+'.+\/?>', 'g');
+		completeEmail = completeEmail.replace(re, '<img src="'+dataURL+'" width="100%">');
+		
+		controlImg.splice(controlImg.indexOf(url), 1);
+		
+		if(controlImg.length == 0){
+			var list = document.getElementsByTagName("iframe");
+			for(var i=0; i<list.length; i++) {
+				if(list[i].src.indexOf('kzif.') > -1){
+					list[i].contentWindow.postMessage('MSG0002:'+completeEmail, 'https://kzif.github.io');
+					console.log('LOG: RESPONDIDO 2, TAMANHO: '+completeEmail.length);
+					console.log(completeEmail);
+				}
+			}
+		}
+	}
+</table>
 <table class="PDFtable">
 <tr>
 <td id="noIMG" class="PDFtd">Carregando...</td>
