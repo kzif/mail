@@ -68,6 +68,8 @@
 				var texto = e.data.substr(8);
 				texto = texto.replace(/<pre>/g,'<i>');
 				texto = texto.replace(/<\/pre>/g,'</i>');
+				texto = texto.replace(/<p /g,'<div ');
+				texto = texto.replace(/<\/p>/g,'</div>');
 				if(tipo == "MSG0001"){ //Codigo sem imagem em Base64
 					texto = removeIMG(texto);
 					document.getElementById('out_no_image').innerHTML = texto;
