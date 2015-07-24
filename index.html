@@ -72,7 +72,9 @@
 				texto = texto.replace(/<p /g,'<div ');
 				texto = texto.replace(/<\/p>/g,'</div>');
 				//Substitui as tag br
-				texto = texto.replace(/<\/?br>/g,'<div style="color:#FFFFFF;">.</div>');
+				texto = texto.replace(/<\/?br>/g,'<div><span style="color:#FFFFFF;">.</span></div>');
+				texto = texto.replace(/>&nbsp;<\/div>/g,'><span style="color:#FFFFFF;">.</span></div>');
+				
 				if(tipo == "MSG0001"){ //Codigo sem imagem em Base64
 					texto = removeIMG(texto);
 					document.getElementById('out_no_image').innerHTML = texto;
