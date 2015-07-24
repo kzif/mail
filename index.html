@@ -72,8 +72,8 @@
 				texto = texto.replace(/<p /g,'<div ');
 				texto = texto.replace(/<\/p>/g,'</div>');
 				//Substitui as tag br
-				texto = texto.replace(/<\/?br>/g,'<div style="height: 16px"></div>');
-				texto = texto.replace(/>&nbsp;<\/div>/g,' style="height: 16px"></div>');
+				texto = texto.replace(/<\/?br>/g,'<div><html><p><br></p></html></div>');
+				texto = texto.replace(/>&nbsp;<\/div>/g,'><html><p><br></p></html></div>');
 				texto = texto.replace(/>&nbsp;<\/span>/g,' style="color: White;">.</span>');
 				
 				if(tipo == "MSG0001"){ //Codigo sem imagem em Base64
