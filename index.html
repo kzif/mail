@@ -72,9 +72,9 @@
 				texto = texto.replace(/<p /g,'<div ');
 				texto = texto.replace(/<\/p>/g,'</div>');
 				//Substitui as tag br
-				texto = texto.replace(/<\/?br>/g,'<div><img height="16px" width="16px" src="data:image/png;base64"></div>');
-				texto = texto.replace(/>&nbsp;<\/div>/g,'><img height="16px" width="16px" src="data:image/png;base64"></div>');
-				texto = texto.replace(/>&nbsp;<\/span>/g,'><img height="16px" width="16px" src="data:image/png;base64"></span>');
+				texto = texto.replace(/<\/?br>/g,'<div><img height="16px" width="16px" src="data:image/png;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></div>');
+				texto = texto.replace(/>&nbsp;<\/div>/g,'><img height="16px" width="16px" src="data:image/png;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></div>');
+				texto = texto.replace(/>&nbsp;<\/span>/g,'><img height="16px" width="16px" src="data:image/png;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></span>');
 				
 				if(tipo == "MSG0001"){ //Codigo sem imagem em Base64
 					texto = removeIMG(texto);
