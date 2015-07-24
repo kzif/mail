@@ -43,7 +43,7 @@
 		texto = texto.replace(/<p /g,'<div ');
 		texto = texto.replace(/<\/p>/g,'</div>');
 		//Substitui as tag br
-		texto = texto.replace(/(<\/?br>\r?\n?){2,30}/g,'<div><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAFklEQVR42mNkoBAwjhowasCoAcPFAAAmmAARm5JBWgAAAABJRU5ErkJggg=="></div>');
+		texto = texto.replace(/<\/?br>\r\n<\/?br>/g,'<br><div><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAFklEQVR42mNkoBAwjhowasCoAcPFAAAmmAARm5JBWgAAAABJRU5ErkJggg=="></div>');
 		texto = texto.replace(/>&nbsp;<\/div>/g,'><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAFklEQVR42mNkoBAwjhowasCoAcPFAAAmmAARm5JBWgAAAABJRU5ErkJggg=="></div>');
 		texto = texto.replace(/>&nbsp;<\/span>/g,'><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAFklEQVR42mNkoBAwjhowasCoAcPFAAAmmAARm5JBWgAAAABJRU5ErkJggg=="></span>');
 		return texto;
