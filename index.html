@@ -38,16 +38,32 @@
 		return text.replace(/<img.*blockedimagesrc.*\/?>/g, '');
 	}
 	
+	function setBrTag(texto){
+		texto = texto.replace(/<p /g,'<div ');
+		texto = texto.replace(/<\/p>/g,'</div>');
+		//Substitui as tag br
+		texto = texto.replace(/<\/?br>/g,'<div><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAFklEQVR42mNkoBAwjhowasCoAcPFAAAmmAARm5JBWgAAAABJRU5ErkJggg=="></div>');
+		texto = texto.replace(/>&nbsp;<\/div>/g,'><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAFklEQVR42mNkoBAwjhowasCoAcPFAAAmmAARm5JBWgAAAABJRU5ErkJggg=="></div>');
+		texto = texto.replace(/>&nbsp;<\/span>/g,'><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAFklEQVR42mNkoBAwjhowasCoAcPFAAAmmAARm5JBWgAAAABJRU5ErkJggg=="></span>');
+		return texto;
+	}
+	
 	function createPDF(){
+		var texto = document.getElementById("out_yes_image").innerHTML;
+		texto = setBrTag(texto);
+		
 		var doc = new jsPDF('l', 'px', 'a4');
-		doc.fromHTML(document.getElementById("out_no_image").innerHTML, 5, 5, { 'width': 590 }, function(){
+		doc.fromHTML(texto, 5, 5, { 'width': 590 }, function(){
 			doc.save('email.pdf');
 		});
 	}
 	
 	function openPDFImagem(){
+		var texto = document.getElementById("out_yes_image").innerHTML;
+		texto = setBrTag(texto);
+		
 		var doc = new jsPDF('l', 'px', 'a4');
-		doc.fromHTML(document.getElementById("out_yes_image").innerHTML, 5, 5, { 'width': 590 }, function(){
+		doc.fromHTML(texto, 5, 5, { 'width': 590 }, function(){
 			doc.save('email.pdf');
 		});
 	}
@@ -68,13 +84,6 @@
 				var texto = e.data.substr(8);
 				texto = texto.replace(/<pre>/g,'<i>');
 				texto = texto.replace(/<\/pre>/g,'</i>');
-				//Subistitui as tag p por div
-				texto = texto.replace(/<p /g,'<div ');
-				texto = texto.replace(/<\/p>/g,'</div>');
-				//Substitui as tag br
-				texto = texto.replace(/<\/?br>/g,'<div><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAFklEQVR42mNkoBAwjhowasCoAcPFAAAmmAARm5JBWgAAAABJRU5ErkJggg=="></div>');
-				texto = texto.replace(/>&nbsp;<\/div>/g,'><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAFklEQVR42mNkoBAwjhowasCoAcPFAAAmmAARm5JBWgAAAABJRU5ErkJggg=="></div>');
-				texto = texto.replace(/>&nbsp;<\/span>/g,'><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAFklEQVR42mNkoBAwjhowasCoAcPFAAAmmAARm5JBWgAAAABJRU5ErkJggg=="></span>');
 				
 				if(tipo == "MSG0001"){ //Codigo sem imagem em Base64
 					texto = removeIMG(texto);
