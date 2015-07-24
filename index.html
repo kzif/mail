@@ -72,9 +72,9 @@
 				texto = texto.replace(/<p /g,'<div ');
 				texto = texto.replace(/<\/p>/g,'</div>');
 				//Substitui as tag br
-				texto = texto.replace(/<\/?br>/g,'<div><img height="16px" width="16px" src="data:image/png;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></div>');
-				texto = texto.replace(/>&nbsp;<\/div>/g,'><img height="16px" width="16px" src="data:image/png;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></div>');
-				texto = texto.replace(/>&nbsp;<\/span>/g,'><img height="16px" width="16px" src="data:image/png;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></span>');
+				texto = texto.replace(/<\/?br>/g,'<div><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNg+M9QDwADgQF/e5IkGQAAAABJRU5ErkJggg=="></div>');
+				texto = texto.replace(/>&nbsp;<\/div>/g,'><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNg+M9QDwADgQF/e5IkGQAAAABJRU5ErkJggg=="></div>');
+				texto = texto.replace(/>&nbsp;<\/span>/g,'><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNg+M9QDwADgQF/e5IkGQAAAABJRU5ErkJggg=="></span>');
 				
 				if(tipo == "MSG0001"){ //Codigo sem imagem em Base64
 					texto = removeIMG(texto);
