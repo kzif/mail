@@ -50,7 +50,7 @@
 	}
 	
 	function createPDF(){
-		var texto = document.getElementById("out_no_image").innerHTML;
+		var texto = removeIMG(document.getElementById("out_no_image").innerHTML);
 		texto = setBrTag(texto);
 		
 		var doc = new jsPDF('l', 'px', 'a4');
@@ -106,10 +106,12 @@
 					}else{
 						cabecario += Office.context.mailbox.item.cc[i].displayName+' <'+Office.context.mailbox.item.cc[i].emailAddress+'>, ';
 					}					
-				}			
+				}
 				
 				texto = texto.replace(/<pre>/g,'<i>');
 				texto = texto.replace(/<\/pre>/g,'</i>');
+				
+				texto = cabecario + texto;
 				
 				if(tipo == "MSG0001"){ //Codigo sem imagem em Base64
 					texto = removeIMG(texto);
