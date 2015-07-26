@@ -82,7 +82,7 @@ var jsPDF = (function(global) {
 			'junior-legal'      : [576,   360],
 			'ledger'            : [1224,  792],
 			'tabloid'           : [792,  1224],
-			'longer'            : [2000,  841.89],
+			'longer'            : [595.28,  1500],
 			'credit-card'       : [153,   243]
 		};
 
