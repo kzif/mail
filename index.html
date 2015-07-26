@@ -50,7 +50,7 @@
 	}
 	
 	function createPDF(){
-		var texto = document.getElementById("out_yes_image").innerHTML;
+		var texto = document.getElementById("out_no_image").innerHTML;
 		texto = setBrTag(texto);
 		
 		var doc = new jsPDF('l', 'px', 'a4');
@@ -62,7 +62,7 @@
 	function openPDFImagem(){
 		var texto = document.getElementById("out_yes_image").innerHTML;
 		texto = setBrTag(texto);
-		
+	
 		var doc = new jsPDF('l', 'px', 'a4');
 		doc.fromHTML(texto, 5, 5, { 'width': 590 }, function(){
 			doc.save('email.pdf');
@@ -83,6 +83,31 @@
 				//Idetifica qual foi a solicitação
 				var tipo  = e.data.substr(0,7);
 				var texto = e.data.substr(8);
+				var cabecario = '<h1>'+Office.context.mailbox.item.subject+'</h1>'+
+						'<h3>'+Office.context.mailbox.item.sender.displayName+'</h3>'+
+						'<p>'+Office.context.mailbox.item.dateTimeModified+'</p>'+
+						'<p><b>Para:</b> ';
+				//Pega o para
+				for(var i = 0; i < Office.context.mailbox.item.to.length; i++){
+					if(i == Office.context.mailbox.item.to.length-1){
+						cabecario += Office.context.mailbox.item.to[i].displayName+' <'+Office.context.mailbox.item.to[i].emailAddress+'>';
+					}else{
+						cabecario += Office.context.mailbox.item.to[i].displayName+' <'+Office.context.mailbox.item.to[i].emailAddress+'>, ';
+					}					
+				}
+				cabecario += '</p>';
+				//Pega o CC
+				for(var i = 0; i < Office.context.mailbox.item.cc.length; i++){
+					if(i == 0){
+						cabecario += '<p><b>Cc:</b> ';
+					}
+					if(i == Office.context.mailbox.item.cc.length-1){
+						cabecario += Office.context.mailbox.item.cc[i].displayName+' <'+Office.context.mailbox.item.cc[i].emailAddress+'></p>';
+					}else{
+						cabecario += Office.context.mailbox.item.cc[i].displayName+' <'+Office.context.mailbox.item.cc[i].emailAddress+'>, ';
+					}					
+				}			
+				
 				texto = texto.replace(/<pre>/g,'<i>');
 				texto = texto.replace(/<\/pre>/g,'</i>');
 				
