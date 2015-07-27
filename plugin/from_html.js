@@ -471,6 +471,8 @@
 						renderer.x = temp;
 					} else if (cn.nodeName === "BR") {
 						renderer.y += fragmentCSS["font-size"] * renderer.pdf.internal.scaleFactor;
+						console.log(fragmentCSS["font-size"]);
+						console.log(renderer.pdf.internal.scaleFactor);
 						renderer.addText("\u2028", clone(fragmentCSS));
 					} else {
 						if (!elementHandledElsewhere(cn, renderer, elementHandlers)) {
