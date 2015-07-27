@@ -947,6 +947,7 @@
 			//if a margin was added (by e.g. a text-alignment), move the cursor
 			if(line[0] !== undefined){
 				if (line[0][1]["margin-left"] !== undefined && line[0][1]["margin-left"] > 0) {
+					console.log(line[i][0]);
 					wantedIndent = this.pdf.internal.getCoordinateString(line[0][1]["margin-left"]);
 					indentMove = wantedIndent - currentIndent;
 					currentIndent = wantedIndent;
