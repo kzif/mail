@@ -294,8 +294,9 @@
 			rowData = {};
 			j = 0;
 			while (j < tableRow.cells.length) {
-				if(headers[j] === undefined) continue;
-				rowData[headers[j].name] = tableRow.cells[j].textContent.replace(/\r?\n/g, '');
+				if(headers[j] !== undefined){
+					rowData[headers[j].name] = tableRow.cells[j].textContent.replace(/\r?\n/g, '');
+				}
 				j++;
 			}
 			data.push(rowData);
