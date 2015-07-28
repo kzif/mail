@@ -88,8 +88,9 @@
 				//Idetifica qual foi a solicitação
 				var tipo  = e.data.substr(0,7);
 				var texto = e.data.substr(8);
-				
 				texto = texto.replace(/>&nbsp;</g,'><br><');
+				texto = texto.replace(/“/g,'');
+				texto = texto.replace(/”/g,'');
 				
 				var cabecario = '<h2>'+Office.context.mailbox.item.subject+'</h2>'+
 						'<h3>'+Office.context.mailbox.item.sender.displayName+'</h3>'+
