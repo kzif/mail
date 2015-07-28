@@ -219,9 +219,9 @@
 ''+
 'function completeRequestBody(dataURL, url, width, height){		'+
 '	url = url.replace(\'https://outlook.office365.com/owa/\', \'\');'+
-'	url = url.replace(/\./g, \'\\.\');'+
-'	url = url.replace(/\?/g, \'\\?\');'+
-'	url = url.replace(/\+/g, \'\\+\');'+
+'	url = url.replace(/\\./g, \'\\\\.\');'+
+'	url = url.replace(/\\?/g, \'\\\\?\');'+
+'	url = url.replace(/\\+/g, \'\\\\+\');'+
 '	url = url.replace(/&/g, \'&amp;\');'+
 '	'+
 '	//Ajusta imagem'+
@@ -231,7 +231,7 @@
 '		width = max_image;'+
 '	}'+
 '		'+
-'	var re = new RegExp(\'<img.+\'+url+\'.+\/?>\', \'g\');'+
+'	var re = new RegExp(\'<img.+\'+url+\'.+\\/?>\', \'g\');'+
 '	if(dataURL == "ERROR"){'+
 '		completeEmail = completeEmail.replace(re, \'\');'+
 '	}else{'+
