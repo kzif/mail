@@ -296,7 +296,6 @@
 			while (j < tableRow.cells.length) {
 				if(headers[j] !== undefined){
 					rowData[headers[j].name] = tableRow.cells[j].textContent.replace(/\r?\n/g, '');
-					console.log(headers[j].name);
 				}
 				j++;
 			}
