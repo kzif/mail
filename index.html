@@ -37,7 +37,7 @@
 		var texto = removeIMG(document.getElementById("out_no_image").innerHTML);
 		texto = setBrTag(texto);
 		
-		var doc = new jsPDF('l', 'px', 'a4');
+		var doc = new jsPDF('p','pt','a4');
 		doc.fromHTML(texto, 10, 10, { 'width': 590 }, function(){
 			doc.save('email.pdf');
 		});
@@ -47,7 +47,7 @@
 		var texto = document.getElementById("out_yes_image").innerHTML;
 		texto = setBrTag(texto);
 	
-		var doc = new jsPDF('l', 'px', 'a4');
+		var doc = new jsPDF('p','pt','a4');
 		doc.fromHTML(texto, 10, 10, { 'width': 590 }, function(){
 			doc.save('email.pdf');
 		});
