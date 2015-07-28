@@ -280,7 +280,11 @@
 		l = table.rows[0].cells.length;
 		table_with = table.clientWidth;
 		while (i < l) {
-			cell = table.rows[0].cells[i];
+			if(table.rows[1]){
+				cell = table.rows[1].cells[i];
+			}else{
+				cell = table.rows[0].cells[i];
+			}
 			headers[i] = {
 				name : cell.textContent.toLowerCase().replace(/\s+/g, ''),
 				prompt : cell.textContent.replace(/\r?\n/g, ''),
