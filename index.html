@@ -31,7 +31,7 @@
 		top.postMessage('START', 'https://outlook.office365.com');
 		isScriptOn = setTimeout(setScriptArea, 1000);
 	};
-
+	
 	function removeIMG(text){
 		return text.replace(/<img.*\/?>/g, '');
 	}
@@ -44,13 +44,6 @@
 		texto = texto.replace(/<p /g,'<div ');
 		texto = texto.replace(/<\/p>/g,'</div>');
 		texto = texto.replace(/>&nbsp;</g,'><br><');
-		
-		//Substitui as tag br
-		/*
-		texto = texto.replace(/<\/?br>\r\n<\/?br>/g,'<br><div><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAFklEQVR42mNkoBAwjhowasCoAcPFAAAmmAARm5JBWgAAAABJRU5ErkJggg=="></div>');
-		texto = texto.replace(/>&nbsp;<\/div>/g,'><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAFklEQVR42mNkoBAwjhowasCoAcPFAAAmmAARm5JBWgAAAABJRU5ErkJggg=="></div>');
-		texto = texto.replace(/>&nbsp;<\/span>/g,'><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAFklEQVR42mNkoBAwjhowasCoAcPFAAAmmAARm5JBWgAAAABJRU5ErkJggg=="></span>');
-		*/
 		return texto;
 	}
 	
@@ -121,16 +114,17 @@
 				texto = texto.replace(/<\/pre>/g,'</i>');
 				
 				texto = cabecario + texto;
+				var imagemDownload = "data:image/jpeg;base64,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";
 				
 				if(tipo == "MSG0001"){ //Codigo sem imagem em Base64
 					texto = removeIMG(texto);
 					document.getElementById('out_no_image').innerHTML = texto;
-					document.getElementById("noIMG").innerHTML = '<img onclick="createPDF()" class="PDFimg" src="http://www.seafoodtraining.org/media/storage/editor/_thumbs/Images/download-pdf.jpg"><br>Sem Imagem';
+					document.getElementById("noIMG").innerHTML = '<img onclick="createPDF()" class="PDFimg" src="'+imagemDownload+'"><br>Sem Imagem';
 				}else if(tipo == "MSG0002"){ //Comdigo com imagens em Base64
 					texto = removeIMGBlock(texto);
 					document.getElementById('out_yes_image').innerHTML = texto;
-					document.getElementById("yeIMG").innerHTML = '<img onclick="openPDFImagem()" class="PDFimg" src="http://www.seafoodtraining.org/media/storage/editor/_thumbs/Images/download-pdf.jpg"><br>Com Imagem (Script)';
-					document.getElementById("soIMG").innerHTML = '<img onclick="openPDFSoftware()" class="PDFimg" src="http://www.seafoodtraining.org/media/storage/editor/_thumbs/Images/download-pdf.jpg"><br>Com Imagem (Software)';
+					document.getElementById("yeIMG").innerHTML = '<img onclick="openPDFImagem()" class="PDFimg" src="'+imagemDownload+'"><br>Com Imagem (Script)';
+					document.getElementById("soIMG").innerHTML = '<img onclick="openPDFSoftware()" class="PDFimg" src="'+imagemDownload+'"><br>Com Imagem (Software)';
 				}
 			}
 		},
@@ -141,7 +135,7 @@
 		//Informa que não recebeu mensagem no tempo apropriado
 		document.body.innerHTML = '<b>Erro:</b> Não foi possivel inicializar o PDF Create, execute o código abaixo no console do naveador<br>\
 		<textarea id ="textareaSet"; style="width: 99%; height:35px"></textarea>';
-		document.getElementById('textareaSet').value = 'function getBodyEmailNoImage(){for(var e=document.getElementsByClassName("rpHighlightAllClass rpHighlightBodyClass allowTextSelection")[0],t=document.getElementsByTagName("iframe"),i=0;i<t.length;i++)t[i].src.indexOf("kzif.")>-1&&t[i].contentWindow.postMessage("MSG0001:"+e.innerHTML,"https://kzif.github.io")}function getBodyEmailComplete(){var e=document.getElementsByClassName("rpHighlightAllClass rpHighlightBodyClass allowTextSelection")[0];completeEmail=e.innerHTML;var t=e.getElementsByTagName("img"),i=makeid();emailAcrtive=i,controlImg=new Array,console.log(t.length);for(var o=0;o<t.length;o++)controlImg.indexOf(t[o].src)<0&&(controlImg[controlImg.length]=t[o].src,convertImgToBase64(t[o].src,completeRequestBody,i));if(0==t.length)for(var n=document.getElementsByTagName("iframe"),o=0;o<n.length;o++)n[o].src.indexOf("kzif.")>-1&&n[o].contentWindow.postMessage("MSG0002:"+completeEmail,"https://kzif.github.io")}function convertImgToBase64(e,t,i){var o=new Image;o.onload=function(){o.clearTimer();var n=document.createElement("CANVAS"),l=n.getContext("2d");n.height=this.height,n.width=this.width,l.drawImage(this,0,0);var a=n.toDataURL("image/png");i==emailAcrtive&&t(a,e,this.width,this.height),n=null},o.onerror=function(){i==emailAcrtive&&t("ERROR",e,0,0)},o.clearTimer=function(){o.timer&&(clearTimeout(o.timer),o.timer=null)},o.timer=setTimeout(function(){i==emailAcrtive&&t("ERROR",e,0,0)},15e3),o.src=e}function makeid(){for(var e="",t="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",i=0;8>i;i++)e+=t.charAt(Math.floor(Math.random()*t.length));return e}function completeRequestBody(e,t,i,o){t=t.replace("https://outlook.office365.com/owa/",""),t=t.replace(/\\./g,"\\\\."),t=t.replace(/\\?/g,"\\\\?"),t=t.replace(/\\+/g,"\\\\+"),t=t.replace(/&/g,"&amp;");var n=1e3;i>n&&(o=o/i*n,i=n);var l=new RegExp("<img.+"+t+".+/?>","g");if(completeEmail="ERROR"==e?completeEmail.replace(l,""):completeEmail.replace(l,\'<img src="\'+e+\'" width="\'+i+\'px" height="\'+o+\'px">\'),controlImg.splice(controlImg.indexOf(t),1),0==controlImg.length)for(var a=document.getElementsByTagName("iframe"),m=0;m<a.length;m++)a[m].src.indexOf("kzif.")>-1&&a[m].contentWindow.postMessage("MSG0002:"+completeEmail,"https://kzif.github.io")}function addEvent(){window.addEventListener("message",function(e){"https://kzif.github.io"==e.origin&&"START"==e.data&&(getBodyEmailNoImage(),getBodyEmailComplete())},!1)}var completeEmail,emailAcrtive,controlImg;addEvent();';
+		document.getElementById('textareaSet').value = 'function getBodyEmailNoImage(){for(var e=document.getElementsByClassName("rpHighlightAllClass rpHighlightBodyClass allowTextSelection")[0],t=document.getElementsByTagName("iframe"),i=0;i<t.length;i++)t[i].src.indexOf("kzif.")>-1&&t[i].contentWindow.postMessage("MSG0001:"+e.innerHTML,"https://kzif.github.io")}function getBodyEmailComplete(){var e=document.getElementsByClassName("rpHighlightAllClass rpHighlightBodyClass allowTextSelection")[0];completeEmail=e.innerHTML;var t=e.getElementsByTagName("img"),i=makeid();emailAcrtive=i,controlImg=new Array;for(var o=0;o<t.length;o++)controlImg.indexOf(t[o].src)<0&&(controlImg[controlImg.length]=t[o].src,convertImgToBase64(t[o].src,completeRequestBody,i));if(0==t.length)for(var a=document.getElementsByTagName("iframe"),o=0;o<a.length;o++)a[o].src.indexOf("kzif.")>-1&&a[o].contentWindow.postMessage("MSG0002:"+completeEmail,"https://kzif.github.io")}function convertImgToBase64(e,t,i){var o=new Image;o.onload=function(){o.clearTimer();var a=document.createElement("CANVAS"),n=a.getContext("2d");a.height=this.height,a.width=this.width,n.drawImage(this,0,0);var l=a.toDataURL("image/png");i==emailAcrtive&&t(l,e,this.width,this.height),a=null},o.onerror=function(){i==emailAcrtive&&t("ERROR",e,0,0)},o.clearTimer=function(){o.timer&&(clearTimeout(o.timer),o.timer=null)},o.timer=setTimeout(function(){i==emailAcrtive&&t("ERROR",e,0,0)},15e3),o.src=e}function makeid(){for(var e="",t="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",i=0;8>i;i++)e+=t.charAt(Math.floor(Math.random()*t.length));return e}function completeRequestBody(e,t,i,o){t=t.replace("https://outlook.office365.com/owa/",""),t=t.replace(/\\./g,"\\\\."),t=t.replace(/\\?/g,"\\\\?"),t=t.replace(/\\+/g,"\\\\+"),t=t.replace(/&/g,"&amp;");var a=1e3;i>a&&(o=o/i*a,i=a);var n=new RegExp("<img.+"+t+".+/?>","g");if(completeEmail="ERROR"==e?completeEmail.replace(n,""):completeEmail.replace(n,\'<img src="\'+e+\'" width="\'+i+\'px" height="\'+o+\'px">\'),controlImg.splice(controlImg.indexOf(t),1),0==controlImg.length)for(var l=document.getElementsByTagName("iframe"),m=0;m<l.length;m++)l[m].src.indexOf("kzif.")>-1&&l[m].contentWindow.postMessage("MSG0002:"+completeEmail,"https://kzif.github.io")}function addEvent(){window.addEventListener("message",function(e){"https://kzif.github.io"==e.origin&&"START"==e.data&&(getBodyEmailNoImage(),getBodyEmailComplete())},!1)}var completeEmail,emailAcrtive,controlImg;addEvent();';
 	}
 </script>
 <style type="text/css">	
