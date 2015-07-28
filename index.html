@@ -43,8 +43,7 @@
 	function setBrTag(texto){
 		texto = texto.replace(/<p /g,'<div ');
 		texto = texto.replace(/<\/p>/g,'</div>');
-		//remove span vazio
-		texto = texto.replace(/&nbsp;></g,'</div>');
+		texto = texto.replace(/>&nbsp;</g,'><br><');
 		
 		//Substitui as tag br
 		/*
