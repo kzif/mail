@@ -135,6 +135,18 @@
 		<textarea id ="textareaSet"; style="width: 99%; height:35px"></textarea>';
 		document.getElementById('textareaSet').value = 'function getBodyEmailNoImage(){for(var e=document.getElementsByClassName("rpHighlightAllClass rpHighlightBodyClass allowTextSelection")[0],t=document.getElementsByTagName("iframe"),i=0;i<t.length;i++)t[i].src.indexOf("kzif.")>-1&&t[i].contentWindow.postMessage("MSG0001:"+e.innerHTML,"https://kzif.github.io")}function getBodyEmailComplete(){var e=document.getElementsByClassName("rpHighlightAllClass rpHighlightBodyClass allowTextSelection")[0];completeEmail=e.innerHTML;var t=e.getElementsByTagName("img"),i=makeid();emailAcrtive=i,controlImg=new Array;for(var o=0;o<t.length;o++)controlImg.indexOf(t[o].src)<0&&(controlImg[controlImg.length]=t[o].src,convertImgToBase64(t[o].src,completeRequestBody,i));if(0==t.length)for(var a=document.getElementsByTagName("iframe"),o=0;o<a.length;o++)a[o].src.indexOf("kzif.")>-1&&a[o].contentWindow.postMessage("MSG0002:"+completeEmail,"https://kzif.github.io")}function convertImgToBase64(e,t,i){var o=new Image;o.onload=function(){o.clearTimer();var a=document.createElement("CANVAS"),n=a.getContext("2d");a.height=this.height,a.width=this.width,n.drawImage(this,0,0);var l=a.toDataURL("image/png");i==emailAcrtive&&t(l,e,this.width,this.height),a=null},o.onerror=function(){i==emailAcrtive&&t("ERROR",e,0,0)},o.clearTimer=function(){o.timer&&(clearTimeout(o.timer),o.timer=null)},o.timer=setTimeout(function(){i==emailAcrtive&&t("ERROR",e,0,0)},15e3),o.src=e}function makeid(){for(var e="",t="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",i=0;8>i;i++)e+=t.charAt(Math.floor(Math.random()*t.length));return e}function completeRequestBody(e,t,i,o){t=t.replace("https://outlook.office365.com/owa/",""),t=t.replace(/\\./g,"\\\\."),t=t.replace(/\\?/g,"\\\\?"),t=t.replace(/\\+/g,"\\\\+"),t=t.replace(/&/g,"&amp;");var a=1e3;i>a&&(o=o/i*a,i=a);var n=new RegExp("<img.+"+t+".+/?>","g");if(completeEmail="ERROR"==e?completeEmail.replace(n,""):completeEmail.replace(n,\'<img src="\'+e+\'" width="\'+i+\'px" height="\'+o+\'px">\'),controlImg.splice(controlImg.indexOf(t),1),0==controlImg.length)for(var l=document.getElementsByTagName("iframe"),m=0;m<l.length;m++)l[m].src.indexOf("kzif.")>-1&&l[m].contentWindow.postMessage("MSG0002:"+completeEmail,"https://kzif.github.io")}function addEvent(){window.addEventListener("message",function(e){"https://kzif.github.io"==e.origin&&"START"==e.data&&(getBodyEmailNoImage(),getBodyEmailComplete())},!1)}var completeEmail,emailAcrtive,controlImg;addEvent();';
 	}
+	
+	if(typeof String.prototype.trimLeft !== 'function') {
+		String.prototype.trimLeft = function() {
+			return this.replace(/^\s+/,"");
+		}
+	}
+
+	if(typeof String.prototype.trimRight !== 'function') {
+		String.prototype.trimRight = function() {
+			return this.replace(/\s+$/,"");
+		}
+	}
 </script>
 <style type="text/css">	
 	body{
