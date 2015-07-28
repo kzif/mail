@@ -937,10 +937,10 @@
 			i = 0;
 			l = line.length;
 			while (i !== l) {
-				//if (line[i][0].trim()) {
+				if (line[i][0].trim()) {
 					maxLineHeight = Math.max(maxLineHeight, line[i][1]["line-height"], line[i][1]["font-size"]);
 					fontSize = line[i][1]["font-size"] * 7;
-				//}
+				}
 				i++;
 			}
 			//if we have to move the cursor to adapt the indent
