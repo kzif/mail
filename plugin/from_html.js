@@ -473,8 +473,8 @@
 						renderer.x = temp;
 					} else if (cn.nodeName === "BR") {
 						//Salta a linha adicionado *16 para converter em px
-						//renderer.y += fragmentCSS["font-size"]* 16 * renderer.pdf.internal.scaleFactor;
-						renderer.y += fragmentCSS["font-size"]*renderer.pdf.internal.scaleFactor;
+						renderer.y += fragmentCSS["font-size"]* 16 * renderer.pdf.internal.scaleFactor;
+						//renderer.y += fragmentCSS["font-size"]*renderer.pdf.internal.scaleFactor;
 						renderer.addText("\u2028", clone(fragmentCSS));
 					} else {
 						if (!elementHandledElsewhere(cn, renderer, elementHandlers)) {
