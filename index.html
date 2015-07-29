@@ -10,6 +10,19 @@
   <script src="https://appsforoffice.microsoft.com/lib/1.1/hosted/office.js" type="text/javascript"></script>
   
 	<script type="text/javascript" src="./dist/jspdf.min.js"></script>
+	<!--
+	<script type="text/javascript" src="./plugin/addimage.js"></script>
+	<script type="text/javascript" src="./plugin/from_html.js"></script>
+	<script type="text/javascript" src="./plugin/split_text_to_size.js"></script>
+	<script type="text/javascript" src="./plugin/standard_fonts_metrics.js"></script>
+	<script type="text/javascript" src="./plugin/png_support.js"></script>
+	<script type="text/javascript" src="./plugin/FileSaver.js"></script>
+	<script type="text/javascript" src="./plugin/renderer.js"></script>
+	<script type="text/javascript" src="./plugin/cell.js"></script>
+	
+	<script type="text/javascript" src="./libs/png_support/png.js"></script>
+	<script type="text/javascript" src="./libs/png_support/zlib.js"></script>
+	-->
   
 <script type="text/javascript">
 	Office.initialize = function(){
@@ -99,7 +112,7 @@
 				texto = texto.replace(/<pre>/g,'<i>');
 				texto = texto.replace(/<\/pre>/g,'</i>');
 				
-				texto = cabecario + texto;
+				//texto = cabecario + texto;
 				var imagemDownload = "data:image/jpeg;base64,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";
 				
 				if(tipo == "MSG0001"){ //Codigo sem imagem em Base64
@@ -158,7 +171,7 @@
 	}
 	
 	#out_no_image, #out_yes_image{
-		display: block;
+		display: none;
 	}
 	
 	@media print {
