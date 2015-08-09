@@ -15,7 +15,7 @@
 		<script src="https://html2canvas.hertzen.com/build/html2canvas.js"></script>
 
 		<!-- Code editor -->
-		<script type="text/javascript" src="jspdf.js"></script>
+		<script type="text/javascript" src="./dist/jspdf.min.js"></script>
 		<script type="text/javascript" src="./libs/require/require.js"></script>
 		
 		<script type="text/javascript" src="./libs/require/config.js"></script>
@@ -41,6 +41,7 @@
 	Office.initialize = function(){
 		addEvent();
 		top.postMessage('START', 'https://outlook.office365.com');
+		top.postMessage('START', 'https://outlook.office.com');
 		isScriptOn = setTimeout(setScriptArea, 1000);
 	};
 	
