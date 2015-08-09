@@ -30,9 +30,15 @@
 <script type="text/javascript">
 	Office.initialize = function(){
 		addEvent();
-		top.postMessage('START', 'https://outlook.office365.com');
-		top.postMessage('START', 'https://outlook.office.com');
-		isScriptOn = setTimeout(setScriptArea, 1000);
+		try{
+			top.postMessage('START', 'https://outlook.office365.com');
+		}catch (e){
+		}
+		try{
+			top.postMessage('START', 'https://outlook.office.com');
+		}catch (e){
+		}		
+		isScriptOn = setTimeout(setScriptArea, 3000);
 	};
 	
 	function removeIMG(text){
