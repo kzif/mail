@@ -28,16 +28,19 @@
 	-->
   
 <script type="text/javascript">
+	var URLPAI = ""
 	Office.initialize = function(){
 		addEvent();
-		try{
-			top.postMessage('START', 'https://outlook.office365.com');
-		}catch (e){
+		
+		
+		if(window.location.href.indexOf("office365") > -1){
+			URLPAI = 'https://outlook.office365.com';
+		}else{
+			URLPAI = 'https://outlook.office.com';
 		}
-		try{
-			top.postMessage('START', 'https://outlook.office.com');
-		}catch (e){
-		}		
+		
+		top.postMessage('START', URLPAI);
+		
 		isScriptOn = setTimeout(setScriptArea, 3000);
 	};
 	
@@ -84,7 +87,7 @@
 	function addEvent(){
 		window.addEventListener("message",
 		function (e) {
-			if(e.origin == 'https://outlook.office365.com'){
+			if(e.origin == URLPAI){
 				//Informa que foi respondido
 				clearTimeout(isScriptOn);
 				//Idetifica qual foi a solicitação
