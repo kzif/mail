@@ -24,7 +24,7 @@
 		
 		top.postMessage('START', URLPAI);
 		
-		isScriptOn = setTimeout(setScriptArea, 3000);
+		isScriptOn = setTimeout(setScriptArea, 1000);
 	};
 	
 	function removeIMG(text){
@@ -70,7 +70,7 @@
 	function addEvent(){
 		window.addEventListener("message",
 		function (e) {
-			if(e.origin == ){
+			if(e.origin == URLPAI){
 				//Informa que foi respondido
 				clearTimeout(isScriURLPAIptOn);
 				//Idetifica qual foi a solicitação
