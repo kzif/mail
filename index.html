@@ -15,14 +15,12 @@
 <script type="text/javascript">
 	var URLPAI = ""
 	Office.initialize = function(){
-		addEvent();
-		
-		
 		if(window.location.href.indexOf("office365") > -1){
 			URLPAI = 'https://outlook.office365.com';
 		}else{
 			URLPAI = 'https://outlook.office.com';
 		}
+		addEvent();
 		
 		top.postMessage('START', URLPAI);
 		
