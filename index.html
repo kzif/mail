@@ -72,7 +72,7 @@
 		function (e) {
 			if(e.origin == URLPAI){
 				//Informa que foi respondido
-				clearTimeout(isScriURLPAIptOn);
+				clearTimeout(isScriptOn);
 				//Idetifica qual foi a solicitação
 				var tipo  = e.data.substr(0,7);
 				var texto = e.data.substr(8);
