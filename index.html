@@ -91,6 +91,7 @@
 				var tipo  = e.data.substr(0,7);
 				var texto = e.data.substr(8);
 				texto = texto.replace(/>&nbsp;</g,'><br><');
+				texto = texto.replace(/<\/?br>/g,'><div><br><div><');
 				texto = texto.replace(/“/g,'');
 				texto = texto.replace(/”/g,'');
 				
@@ -112,7 +113,7 @@
 				}
 				
 				var cabecario = '<h2>'+assunto+'</h2>'+
-						'<div><b>'+Office.context.mailbox.item.sender.displayName+'<b></div>'+
+						'<div><b>'+Office.context.mailbox.item.sender.displayName+'</b></div>'+
 						'<div>'+dataLocalString+'</div>'+
 						'<p><b>Para:</b> ';
 				//Pega o para
