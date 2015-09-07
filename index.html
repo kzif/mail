@@ -112,8 +112,8 @@
 				}
 				
 				var cabecario = '<h2>'+assunto+'</h2>'+
-						'<p><b>'+Office.context.mailbox.item.sender.displayName+'</b><br>'+
-						dataLocalString+'</p>'+
+						'<div><b>'+Office.context.mailbox.item.sender.displayName+'<b></div>'+
+						'<div>'dataLocalString+'</div>'+
 						'<p><b>Para:</b> ';
 				//Pega o para
 				for(var i = 0; i < Office.context.mailbox.item.to.length; i++){
