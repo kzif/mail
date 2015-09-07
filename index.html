@@ -46,7 +46,12 @@
 		var texto = removeIMG(document.getElementById("out_no_image").innerHTML);
 		texto = setBrTag(texto);
 		
-		var nameFime = Office.context.mailbox.item.subject.replace( /[<>:"\/\\|?*]+/g, '' );
+		var assunto = Office.context.mailbox.item.subject;
+				
+		if(assunto == ""){
+			assunto = "(Sem assunto)";
+		}
+		var nameFime = assunto.replace( /[<>:"\/\\|?*]+/g, '' );
 		
 		var doc = new jsPDF('p','pt','a4');
 		doc.fromHTML(texto, 10, 10, { 'width': 590 }, function(){
@@ -58,7 +63,12 @@
 		var texto = document.getElementById("out_yes_image").innerHTML;
 		texto = setBrTag(texto);
 		
-		var nameFime = Office.context.mailbox.item.subject.replace( /[<>:"\/\\|?*]+/g, '' );
+		var assunto = Office.context.mailbox.item.subject;
+				
+		if(assunto == ""){
+			assunto = "(Sem assunto)";
+		}
+		var nameFime = assunto.replace( /[<>:"\/\\|?*]+/g, '' );
 	
 		var doc = new jsPDF('p','pt','a4');
 		doc.fromHTML(texto, 10, 10, { 'width': 590 }, function(){
