@@ -84,7 +84,7 @@
 				texto = texto.replace(/“/g,'');
 				texto = texto.replace(/”/g,'');
 				
-				var dataLocal = new Date(Office.context.mailbox.item.dateTimeModified.replace("GMT","GMT-"));
+				var dataLocal = Office.context.mailbox.item.dateTimeModified;
 				
 				var dayNames = [
 				  "Domingo", "Segunda-Feira", "Terça-Feira",
