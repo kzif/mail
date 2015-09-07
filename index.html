@@ -119,12 +119,12 @@
 				//Pega o para
 				for(var i = 0; i < Office.context.mailbox.item.to.length; i++){
 					if(i == Office.context.mailbox.item.to.length-1){
-						cabecario += Office.context.mailbox.item.to[i].displayName+' <'+Office.context.mailbox.item.to[i].emailAddress+'>';
+						cabecario += Office.context.mailbox.item.to[i].displayName+' <'+Office.context.mailbox.item.to[i].emailAddress+'></p>';
 					}else{
 						cabecario += Office.context.mailbox.item.to[i].displayName+' <'+Office.context.mailbox.item.to[i].emailAddress+'>, ';
 					}					
 				}
-				cabecario += '<br>';
+
 				//Pega o CC
 				for(var i = 0; i < Office.context.mailbox.item.cc.length; i++){
 					if(i == 0){
@@ -137,7 +137,7 @@
 					}					
 				}
 				
-				cabecario += "</p><br>";
+				cabecario += "<p><br></p>";
 				
 				texto = texto.replace(/<pre>/g,'<i>');
 				texto = texto.replace(/<\/pre>/g,'</i>');
