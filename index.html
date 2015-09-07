@@ -91,7 +91,7 @@
 				var tipo  = e.data.substr(0,7);
 				var texto = e.data.substr(8);
 				texto = texto.replace(/>&nbsp;</g,'><br><');
-				texto = texto.replace(/<\/?br>/g,'<div></div>');
+				texto = texto.replace(/<\/?br>/g,'<br><div></div>');
 				texto = texto.replace(/“/g,'');
 				texto = texto.replace(/”/g,'');
 				
