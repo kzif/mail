@@ -84,9 +84,32 @@
 				texto = texto.replace(/“/g,'');
 				texto = texto.replace(/”/g,'');
 				
+				var dataLocal = new Date(Office.context.mailbox.item.dateTimeModified.replace("GMT","GMT-"));
+				var monthNames = [
+				  "Janeiro", "Fevereiro", "Março",
+				  "Abril", "Maio", "Junho", "Julho",
+				  "Agosto", "Setembro", "Outubro",
+				  "Novembro", "Dezembro"
+				];
+				
+				var dayNames = [
+				  "Domingo", "Segunda-Feira", "Terça-Feira",
+				  "Quarta-Feira", "Quinta-Feira", "Sexta-Feira", "Sábado"
+				];
+				
+				var dataLocalString = dayNames(dataLocal.getDay())+" "+("0" + dataLocal.getDate()).slice(-2)+"/"; //Pega o dia
+				dataLocalString += ("0" + (dataLocal.getMonth() + 1)).slice(-2)+"/"+dataLocal.getFullYear()+" "; //Pega o mes e ano
+				dataLocalString += ("0" + dataLocal.getHours()).slice(-2)+":"+("0" + dataLocal.getMinutes()).slice(-2)+":"+("0" + dataLocal.getSeconds()).slice(-2)+":"; //Pega o horário
+				
+				var date = new Date();
+				var day = date.getDay()();
+				var monthIndex = date.getMonth();
+				var year = date.getFullYear();
+				
+				
 				var cabecario = '<h2>'+Office.context.mailbox.item.subject+'</h2>'+
 						'<p><b>'+Office.context.mailbox.item.sender.displayName+'</b></p>'+
-						'<p>'+Office.context.mailbox.item.dateTimeModified+'</p>'+
+						'<p>'+dataLocalString+'</p>'+
 						'<p><b>Para:</b> ';
 				//Pega o para
 				for(var i = 0; i < Office.context.mailbox.item.to.length; i++){
