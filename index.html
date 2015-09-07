@@ -93,11 +93,17 @@
 				
 				var dataLocalString = dayNames[(dataLocal.getDay())]+" "+("0" + dataLocal.getDate()).slice(-2)+"/"; //Pega o dia
 				dataLocalString += ("0" + (dataLocal.getMonth() + 1)).slice(-2)+"/"+dataLocal.getFullYear()+" "; //Pega o mes e ano
-				dataLocalString += ("0" + dataLocal.getHours()).slice(-2)+":"+("0" + dataLocal.getMinutes()).slice(-2)+":"+("0" + dataLocal.getSeconds()).slice(-2)+":"; //Pega o horário
+				dataLocalString += ("0" + dataLocal.getHours()).slice(-2)+":"+("0" + dataLocal.getMinutes()).slice(-2)+":"+("0" + dataLocal.getSeconds()).slice(-2); //Pega o horário
 				
-				var cabecario = '<h2>'+Office.context.mailbox.item.subject+'</h2>'+
-						'<p><b>'+Office.context.mailbox.item.sender.displayName+'</b></p>'+
-						'<p>'+dataLocalString+'</p>'+
+				var assunto = Office.context.mailbox.item.subject;
+				
+				if(assunto == ""){
+					assunto = "(Sem assunto)";
+				}
+				
+				var cabecario = '<h2>'+assunto+'</h2>'+
+						'<p><b>'+Office.context.mailbox.item.sender.displayName+'</b>'+
+						dataLocalString+'</p>'+
 						'<p><b>Para:</b> ';
 				//Pega o para
 				for(var i = 0; i < Office.context.mailbox.item.to.length; i++){
@@ -107,7 +113,7 @@
 						cabecario += Office.context.mailbox.item.to[i].displayName+' <'+Office.context.mailbox.item.to[i].emailAddress+'>, ';
 					}					
 				}
-				cabecario += '</p>';
+				cabecario += '<br>';
 				//Pega o CC
 				for(var i = 0; i < Office.context.mailbox.item.cc.length; i++){
 					if(i == 0){
@@ -120,7 +126,7 @@
 					}					
 				}
 				
-				cabecario += "<br>";
+				cabecario += "</p><br>";
 				
 				texto = texto.replace(/<pre>/g,'<i>');
 				texto = texto.replace(/<\/pre>/g,'</i>');
